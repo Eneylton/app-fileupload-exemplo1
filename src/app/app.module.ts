@@ -9,6 +9,18 @@ import { ListPage } from '../pages/list/list';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { ImagePicker } from '@ionic-native/image-picker';
+import { Crop } from '@ionic-native/crop';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireStorageModule } from 'angularfire2/storage';
+
+import { environment } from '../environment/environment';
+
+import * as firebase from "firebase";
+import { FirbaseProvider } from '../providers/firbase/firbase';
+
+firebase.initializeApp(environment.firebase)
+
 @NgModule({
   declarations: [
     MyApp,
@@ -18,6 +30,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(environment.firebase), 
+    AngularFireStorageModule 
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -28,7 +42,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    ImagePicker,
+    Crop,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    FirbaseProvider
   ]
 })
 export class AppModule {}
